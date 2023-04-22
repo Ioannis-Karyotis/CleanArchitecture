@@ -1,13 +1,33 @@
 ﻿using Domain.Entities;
 using Infastructure;
 using Microsoft.EntityFrameworkCore;
-
+using Serilog;
+using WebApi.Utils.Helpers;
 
 namespace WebApi.Utils.Extensions.Startup
 {
-    public static class SeedingService
+    public static partial class WebApplicationBuilderExtensions
     {
-        public static WebApplication PrepareHostAndSeed(this WebApplicationBuilder builder)
+        public static string appContentRoot = EnvVariablesRetriever.GetAppContentRootPath();
+        public static string appWebRoot = EnvVariablesRetriever.GetAppWebRootPath();
+
+        public static WebApplicationBuilder ConfigureWebHostEnviromentDefaults(this WebApplicationBuilder builder)
+        {
+            if (appContentRoot is not null)
+            {
+                builder.Environment.ContentRootPath = appContentRoot;
+            }
+
+            if (appWebRoot is not null)
+            {
+                builder.Environment.WebRootPath = appWebRoot;
+
+            }
+
+            return builder;
+        }
+
+        public static WebApplication PrepareWebApplicationAndSeed(this WebApplicationBuilder builder)
         {
             var webApplication = builder.Build();
 
