@@ -1,9 +1,9 @@
 ﻿using Application.Members.Queries.GetTestMember;
-using Domain.Shared;
+using Application.Recievers.Members.Commands.AddTestMember;
+using Domain.Models.DTOs;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Abstractions;
-using System.Threading;
 
 namespace Presentation.Controllers
 {
@@ -21,9 +21,16 @@ namespace Presentation.Controllers
         {
             var query = new GetTestMemberQuery();
 
-            Result<TestMemberResponse> response = await Sender.Send(query, cancellationToken);
+            Result<GetTestMemberResponse> response = await Sender.Send(query, cancellationToken);
 
-            return response.IsSuccess ? Ok(response.Value) : NotFound(response.Error);
+            return response.IsSuccess ? Ok(response) : NotFound(response.Error);
+        }
+
+        [HttpPost("test")]
+        public async Task<IActionResult> AddTestMember([FromBody] AddTestMemberCommand request, CancellationToken cancellationToken)
+        {
+            Result response = await Sender.Send(request, cancellationToken);
+            return response.IsSuccess ? Ok(response.IsSuccess): BadRequest(response.Error);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Domain.Entities
     public class Member
     {
 
-        public Member(
+        private Member(
             Guid id,
             string email,
             string firstName,
@@ -27,6 +27,19 @@ namespace Domain.Entities
         public string LastName { get; private set; }
         public string Email { get; private set; }
 
+        public static Member Create(
+            Guid id,
+            string email,
+            string firstName,
+            string lastName)
+        {
+            //Any kind of logic that has to do with Entity's creation, goes here!!!
 
+            return new Member(
+                id,
+                email,
+                firstName,
+                lastName);
+        }
     }
 }

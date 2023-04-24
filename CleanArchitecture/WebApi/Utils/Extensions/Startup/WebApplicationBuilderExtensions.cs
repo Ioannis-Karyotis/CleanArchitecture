@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using Infastructure;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using WebApi.Utils.Helpers;
 
@@ -13,15 +14,14 @@ namespace WebApi.Utils.Extensions.Startup
 
         public static WebApplicationBuilder ConfigureWebHostEnviromentDefaults(this WebApplicationBuilder builder)
         {
-            if (appContentRoot is not null)
+            if (!String.IsNullOrEmpty(appContentRoot))
             {
                 builder.Environment.ContentRootPath = appContentRoot;
             }
 
-            if (appWebRoot is not null)
+            if (!String.IsNullOrEmpty(appWebRoot))
             {
                 builder.Environment.WebRootPath = appWebRoot;
-
             }
 
             return builder;
@@ -80,7 +80,7 @@ namespace WebApi.Utils.Extensions.Startup
             {
 
                 context.Members.Add(
-                    new Member(
+                    Member.Create(
                         new Guid("c381d663-2240-4efd-8a29-84765f16a88d"),
                         "ioannis.karyotis16@gmail.com",
                         "Ioannis",

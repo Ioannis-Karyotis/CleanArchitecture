@@ -1,4 +1,4 @@
-﻿namespace Domain.Shared;
+﻿namespace Domain.Models.DTOs;
 
 public class Error : IEquatable<Error>
 {

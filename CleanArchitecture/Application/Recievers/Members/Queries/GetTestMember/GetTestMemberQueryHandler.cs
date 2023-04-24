@@ -1,7 +1,7 @@
 ﻿using Application.Abstractions.Messaging;
 using Application.Models.Configuration;
+using Domain.Models.DTOs;
 using Domain.Repositories;
-using Domain.Shared;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace Application.Members.Queries.GetTestMember
 {
     internal sealed class GetTestMemberQueryHandler
-    : IQueryHandler<GetTestMemberQuery, TestMemberResponse>
+    : IQueryHandler<GetTestMemberQuery, GetTestMemberResponse>
     {
         private readonly IMemberRepository _memberRepository;
         private readonly TestConfiguration _test;
@@ -25,7 +25,7 @@ namespace Application.Members.Queries.GetTestMember
             _test = test.Value;
         }
 
-        public async Task<Result<TestMemberResponse>> Handle(
+        public async Task<Result<GetTestMemberResponse>> Handle(
             GetTestMemberQuery request,
             CancellationToken cancellationToken)
         {
@@ -35,12 +35,12 @@ namespace Application.Members.Queries.GetTestMember
 
             if (member is null)
             {
-                return Result.Failure<TestMemberResponse>(new Error(
+                return Result.Failure<GetTestMemberResponse>(new Error(
                     "Member.NotFound",
                     $"The member with Id {new Guid("c381d663-2240-4efd-8a29-84765f16a88d")} was not found"));
             }
 
-            return Result.Success<TestMemberResponse>(new TestMemberResponse(_test.Test, "ioannis.karyotis@gmail.com"));
+            return Result.Success<GetTestMemberResponse>(new GetTestMemberResponse(_test.Test, "ioannis.karyotis@gmail.com"));
         }
     }
 }
