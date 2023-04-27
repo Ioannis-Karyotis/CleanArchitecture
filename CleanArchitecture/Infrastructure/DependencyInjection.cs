@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Infrastructure.Repositories;
-using Domain.Repositories;
 using Gatherly.Infastructure;
+using Application.Interfaces.Repositories;
 
 namespace Infrastructure;
 

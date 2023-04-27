@@ -1,13 +1,8 @@
 ﻿using Application.Abstractions.Messaging;
+using Application.Interfaces.Repositories;
 using Domain.Entities;
-using Domain.Models.DTOs;
-using Domain.Repositories;
-using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Domain.Errors;
+using Domain.Shared;
 
 namespace Application.Recievers.Members.Commands.AddTestMember
 {
@@ -30,9 +25,7 @@ namespace Application.Recievers.Members.Commands.AddTestMember
 
             if (member is not null)
             {
-                return Result.Failure(new Error(
-                    "Member.AlreadyExists",
-                    $"The member with Email {request.Email} already exists"));
+                return Result.Failure<GetTestMemberResponse>(DomainErrors.Member.AlreadyExists);
             }
 
             var newMember = Member.Create(

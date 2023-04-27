@@ -1,4 +1,4 @@
-﻿using Domain.Repositories;
+﻿using Application.Interfaces.Repositories;
 using Infastructure;
 
 namespace Gatherly.Infastructure;

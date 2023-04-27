@@ -1,6 +1,6 @@
 ﻿using Application.Members.Queries.GetTestMember;
 using Application.Recievers.Members.Commands.AddTestMember;
-using Domain.Models.DTOs;
+using Domain.Shared;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Abstractions;

@@ -7,7 +7,7 @@ internal class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        //Configure Host
+        //Configure HostBuilder of WebApplicationBuilder
         builder.Host
             .ConfigureEnviromentVariables()
             .UseSerilog((context, configuration) =>
@@ -17,12 +17,12 @@ internal class Program
         builder.Services
             .RegisterApplicationServices(builder.Configuration);
 
-        //Prepare Web Application
+        //Configure WebApplicationBuilder and Prepare WebApplication
         var app = builder
             .ConfigureWebHostEnviromentDefaults()
             .PrepareWebApplicationAndSeed();
 
-        //Configure Application
+        //Configure WebApplication
         app.Configure();
     }
 }

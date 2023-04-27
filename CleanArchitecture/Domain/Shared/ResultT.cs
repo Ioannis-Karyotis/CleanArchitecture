@@ -1,4 +1,4 @@
-﻿namespace Domain.Models.DTOs;
+﻿namespace Domain.Shared;
 
 public class Result<TValue> : Result
 {

@@ -1,7 +1,8 @@
 ﻿using Application.Abstractions.Messaging;
+using Application.Interfaces.Repositories;
 using Application.Models.Configuration;
-using Domain.Models.DTOs;
-using Domain.Repositories;
+using Domain.Errors;
+using Domain.Shared;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
@@ -35,9 +36,7 @@ namespace Application.Members.Queries.GetTestMember
 
             if (member is null)
             {
-                return Result.Failure<GetTestMemberResponse>(new Error(
-                    "Member.NotFound",
-                    $"The member with Id {new Guid("c381d663-2240-4efd-8a29-84765f16a88d")} was not found"));
+                return Result.Failure<GetTestMemberResponse>(DomainErrors.Member.NotFound);
             }
 
             return Result.Success<GetTestMemberResponse>(new GetTestMemberResponse(_test.Test, "ioannis.karyotis@gmail.com"));

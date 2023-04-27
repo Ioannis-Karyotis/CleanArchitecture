@@ -1,4 +1,4 @@
-﻿using Domain.Models.DTOs;
+﻿using Domain.Shared;
 using MediatR;
 
 namespace Application.Abstractions.Messaging;
