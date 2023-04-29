@@ -1,6 +1,4 @@
-﻿
-
-using Domain.Errors;
+﻿using Domain.Errors;
 using Domain.Primitives;
 using Domain.Shared;
 

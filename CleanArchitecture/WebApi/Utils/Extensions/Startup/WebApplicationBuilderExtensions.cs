@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.ValueObjects;
 using Infastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -82,9 +83,9 @@ namespace WebApi.Utils.Extensions.Startup
                 context.Members.Add(
                     Member.Create(
                         new Guid("c381d663-2240-4efd-8a29-84765f16a88d"),
-                        "ioannis.karyotis16@gmail.com",
-                        "Ioannis",
-                        "Karyotis"
+                        Email.Create("ioannis.karyotis16@gmail.com").Value,
+                        FirstName.Create("Ioannis").Value,
+                        LastName.Create("Karyotis").Value
                         )
                     );
 

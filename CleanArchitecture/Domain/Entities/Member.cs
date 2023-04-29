@@ -1,4 +1,5 @@
 ﻿using Domain.Primitives;
+using Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,9 @@ namespace Domain.Entities
 
         private Member(
             Guid id,
-            string email,
-            string firstName,
-            string lastName
+            Email email,
+            FirstName firstName,
+            LastName lastName
             ) : base(id)
         {
             Email = email;
@@ -22,15 +23,15 @@ namespace Domain.Entities
             LastName = lastName;
         }
 
-        public string FirstName { get; private set; }
-        public string LastName { get; private set; }
-        public string Email { get; private set; }
+        public FirstName FirstName { get; private set; } = null;
+        public LastName LastName { get; private set; } = null;
+        public Email Email { get; private set; } = null;
 
         public static Member Create(
             Guid id,
-            string email,
-            string firstName,
-            string lastName)
+            Email email,
+            FirstName firstName,
+            LastName lastName)
         {
             //Any kind of logic that has to do with Entity's creation, goes here!!!
 

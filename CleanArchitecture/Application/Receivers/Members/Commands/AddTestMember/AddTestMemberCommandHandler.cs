@@ -3,6 +3,7 @@ using Application.Interfaces.Repositories;
 using Domain.Entities;
 using Domain.Errors;
 using Domain.Shared;
+using Domain.ValueObjects;
 
 namespace Application.Recievers.Members.Commands.AddTestMember
 {
@@ -30,9 +31,9 @@ namespace Application.Recievers.Members.Commands.AddTestMember
 
             var newMember = Member.Create(
                 Guid.NewGuid(),
-                request.Email,
-                request.FirstName,
-                request.LastName);
+                Email.Create(request.Email).Value,
+                FirstName.Create(request.FirstName).Value,
+                LastName.Create(request.LastName).Value);
 
             _memberRepository.Add(newMember);
 

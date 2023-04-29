@@ -30,7 +30,7 @@ namespace Presentation.Controllers
         public async Task<IActionResult> AddTestMember([FromBody] AddTestMemberCommand request, CancellationToken cancellationToken)
         {
             Result response = await Sender.Send(request, cancellationToken);
-            return response.IsSuccess ? Ok(response.IsSuccess): BadRequest(response.Error);
+            return response.IsSuccess ? Ok(response.IsSuccess): HandleFailure(response);
         }
     }
 }

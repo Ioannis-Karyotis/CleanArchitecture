@@ -19,7 +19,7 @@ namespace Infrastructure.Repositories
         public async Task<Member?> GetByEmailAsync(string email, CancellationToken cancellationToken = default) =>
             await _dbContext
                 .Set<Member>()
-                .FirstOrDefaultAsync(member => member.Email == email, cancellationToken);
+                .FirstOrDefaultAsync(member => member.Email.Value == email, cancellationToken);
         public void Add(Member member) =>
             _dbContext
                 .Set<Member>()

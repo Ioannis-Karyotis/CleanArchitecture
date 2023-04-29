@@ -1,4 +1,6 @@
-﻿using FluentValidation;
+﻿using Application.Behaviors;
+using FluentValidation;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application;
@@ -12,7 +14,9 @@ public static class DependencyInjection
         services.AddMediatR(configuration =>
             configuration.RegisterServicesFromAssembly(assembly));
 
-        services.AddValidatorsFromAssembly(assembly);
+        services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
+
+        services.AddValidatorsFromAssembly(assembly, includeInternalTypes: true);
 
         return services;
     }

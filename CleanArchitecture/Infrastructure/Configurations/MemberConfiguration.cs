@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -12,11 +13,20 @@ namespace Infrastructure.Configurations
 
             builder.HasKey(member => member.Id);
 
-            builder.Property(member => member.FirstName).HasMaxLength(100);
+            builder
+                .OwnsOne(member => member.FirstName)
+                    .Property(x => x.Value)
+                    .HasMaxLength(FirstName.MaxLength);
 
-            builder.Property(member => member.LastName).HasMaxLength(100);
+            builder
+                .OwnsOne(member => member.LastName)
+                    .Property(x => x.Value)
+                    .HasMaxLength(LastName.MaxLength); ;
 
-            builder.Property(member => member.Email).IsRequired();
+            builder
+                .OwnsOne(member => member.Email)
+                    .Property(x => x.Value)
+                    .IsRequired();
         }
     }
 }
