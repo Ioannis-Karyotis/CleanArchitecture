@@ -11,6 +11,8 @@ namespace Domain.Entities
     public sealed class Member : Entity
     {
 
+        private Member(Guid id) : base(id){ } 
+
         private Member(
             Guid id,
             Email email,
@@ -23,9 +25,9 @@ namespace Domain.Entities
             LastName = lastName;
         }
 
-        public FirstName FirstName { get; private set; } = null;
-        public LastName LastName { get; private set; } = null;
-        public Email Email { get; private set; } = null;
+        public FirstName FirstName { get; private set; }
+        public LastName LastName { get; private set; }
+        public Email Email { get; private set; }
 
         public static Member Create(
             Guid id,
@@ -39,7 +41,8 @@ namespace Domain.Entities
                 id,
                 email,
                 firstName,
-                lastName);
+                lastName
+                );
         }
     }
 }

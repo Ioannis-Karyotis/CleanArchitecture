@@ -21,6 +21,7 @@ namespace WebApi.Utils.Extensions.Configurations
             //HERE WILL BIND CONFIGURATION CLASSES
             //EXAMPLE
             services.Configure<TestConfiguration>(config.GetSection("TestConfiguration"));
+            services.Configure<ConnectionStrings>(config.GetSection("ConnectionStrings"));
         }
     }
 }

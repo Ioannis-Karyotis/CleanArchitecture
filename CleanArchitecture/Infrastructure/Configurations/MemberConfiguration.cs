@@ -9,9 +9,13 @@ namespace Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<Member> builder)
         {
-            builder.ToTable("Members");
-
             builder.HasKey(member => member.Id);
+
+
+            builder
+                .OwnsOne(member => member.Email)
+                    .Property(x => x.Value)
+                    .IsRequired();
 
             builder
                 .OwnsOne(member => member.FirstName)
@@ -23,10 +27,7 @@ namespace Infrastructure.Configurations
                     .Property(x => x.Value)
                     .HasMaxLength(LastName.MaxLength); ;
 
-            builder
-                .OwnsOne(member => member.Email)
-                    .Property(x => x.Value)
-                    .IsRequired();
+            
         }
     }
 }

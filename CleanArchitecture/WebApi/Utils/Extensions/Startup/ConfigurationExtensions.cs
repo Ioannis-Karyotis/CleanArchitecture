@@ -6,16 +6,18 @@ namespace WebApi.Utils.Extensions.Startup
     {
         public static string GetAppActiveConnectionString(this IConfiguration config)
         {
-            return
-                config.GetConnectionString(EnvVariablesRetriever.GetAppActiveSchema())
+           var connectionString = config.GetConnectionString(EnvVariablesRetriever.GetAppActiveConnectionVariable())
                 ?? "Host=localhost;Database=CleanArch;Username=postgres;Password=Margoleta16!";
+
+            return connectionString;
         }
 
         public static string GetActiveDBSchema(this IConfiguration config) 
         {
-            return
-                config.GetConnectionString(EnvVariablesRetriever.GetAppActiveSchema())
-                ?? "PgSQLData";
+            var activeDbSchema = config.GetConnectionString($"Schema{EnvVariablesRetriever.GetAppActiveSchema()}")
+                ?? "CleanArchData";
+
+            return activeDbSchema;
         } 
     }
 }

@@ -11,14 +11,18 @@ namespace Infrastructure.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "CleanArchData");
+
             migrationBuilder.CreateTable(
                 name: "Members",
+                schema: "CleanArchData",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    FirstName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    LastName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    Email = table.Column<string>(type: "text", nullable: false)
+                    FirstName_Value = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    LastName_Value = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    Email_Value = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -30,7 +34,8 @@ namespace Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Members");
+                name: "Members",
+                schema: "CleanArchData");
         }
     }
 }
