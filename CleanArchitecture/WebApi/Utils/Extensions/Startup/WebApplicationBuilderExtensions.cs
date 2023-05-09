@@ -79,15 +79,19 @@ namespace WebApi.Utils.Extensions.Startup
 
             if (member is null)
             {
-
-                context.Members.Add(
-                    Member.Create(
+                var newSeedMember = Member.Create(
                         new Guid("c381d663-2240-4efd-8a29-84765f16a88d"),
-                        Email.Create("ioannis.karyotis16@gmail.com").Value,
-                        FirstName.Create("Ioannis").Value,
-                        LastName.Create("Karyotis").Value
-                        )
-                    );
+                        "ioannis.karyotis16@gmail.com",
+                        "Ioannis",
+                        "Karyotis"
+                        );
+
+                if (newSeedMember.IsFailure)
+                {
+                    throw new Exception("There was an error feeding the initial Member");
+                }
+
+                context.Members.Add(newSeedMember.Value);
 
                 if (await context.SaveChangesAsync() > 0)
                 {

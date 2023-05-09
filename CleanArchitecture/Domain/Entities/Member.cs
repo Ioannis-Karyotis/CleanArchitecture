@@ -1,4 +1,6 @@
-﻿using Domain.Primitives;
+﻿using Domain.Errors;
+using Domain.Primitives;
+using Domain.Shared;
 using Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
@@ -29,19 +31,38 @@ namespace Domain.Entities
         public LastName LastName { get; private set; }
         public Email Email { get; private set; }
 
-        public static Member Create(
+        public static Result<Member> Create(
             Guid id,
-            Email email,
-            FirstName firstName,
-            LastName lastName)
+            string email,
+            string firstName,
+            string lastName)
         {
             //Any kind of logic that has to do with Entity's creation, goes here!!!
 
+            var emailResult = Email.Create(email);
+            var firstNameResult = FirstName.Create(firstName);
+            var lastNameResult = LastName.Create(lastName);
+
+            if (emailResult.IsFailure)
+            {
+                return Result.Failure<Member>(emailResult.Error); ;
+            }
+
+            if (firstNameResult.IsFailure)
+            {
+                return Result.Failure<Member>(firstNameResult.Error); ;
+            }
+
+            if (lastNameResult.IsFailure)
+            {
+                return Result.Failure<Member>(lastNameResult.Error); ;
+            }
+
             return new Member(
                 id,
-                email,
-                firstName,
-                lastName
+                emailResult.Value,
+                firstNameResult.Value,
+                lastNameResult.Value
                 );
         }
     }

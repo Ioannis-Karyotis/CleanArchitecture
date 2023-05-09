@@ -31,11 +31,17 @@ namespace Application.Recievers.Members.Commands.AddTestMember
 
             var newMember = Member.Create(
                 Guid.NewGuid(),
-                Email.Create(request.Email).Value,
-                FirstName.Create(request.FirstName).Value,
-                LastName.Create(request.LastName).Value);
+                request.Email,
+                request.FirstName,
+                request.LastName
+                );
 
-            _memberRepository.Add(newMember);
+            if (newMember.IsFailure)
+            {
+                return newMember;
+            }
+
+            _memberRepository.Add(newMember.Value);
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 

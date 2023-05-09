@@ -10,8 +10,7 @@ namespace Application.Receivers.Members.Commands.AddTestMember
         {
             RuleFor(x => x.Email)
                 .NotEmpty()
-                //.EmailAddress()
-                ;
+                .EmailAddress();
 
             RuleFor(x => x.FirstName)
                 .NotEmpty()
