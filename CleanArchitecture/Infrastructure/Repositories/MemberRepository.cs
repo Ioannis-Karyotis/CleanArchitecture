@@ -5,7 +5,7 @@ using Application.Interfaces.Repositories;
 
 namespace Infrastructure.Repositories
 {
-    internal sealed class MemberRepository : IMemberRepository
+    public sealed class MemberRepository : IMemberRepository
     {
         private readonly ApplicationDbContext _dbContext;
 

@@ -1,4 +1,6 @@
-﻿namespace Domain.Shared;
+﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace Domain.Shared;
 
 public class Result
 {

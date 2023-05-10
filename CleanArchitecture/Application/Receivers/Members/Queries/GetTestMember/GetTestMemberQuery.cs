@@ -7,5 +7,5 @@ using System.Threading.Tasks;
 
 namespace Application.Members.Queries.GetTestMember
 {
-    public sealed record GetTestMemberQuery() : IQuery<GetTestMemberResponse>;
+    public record GetTestMemberQuery() : IQuery<GetTestMemberResponse>;
 }

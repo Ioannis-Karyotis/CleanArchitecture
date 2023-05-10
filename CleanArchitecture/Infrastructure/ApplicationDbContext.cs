@@ -6,7 +6,7 @@ using Microsoft.Extensions.Options;
 
 namespace Infastructure;
 
-public sealed class ApplicationDbContext : DbContext, IUnitOfWork
+public class ApplicationDbContext : DbContext, IUnitOfWork
 {
     private readonly ConnectionStrings _connectionStrings;
     public ApplicationDbContext(
@@ -17,11 +17,16 @@ public sealed class ApplicationDbContext : DbContext, IUnitOfWork
         _connectionStrings = connectionStrings.Value;
     }
 
+    public ApplicationDbContext(
+        DbContextOptions options)
+        : base(options)
+    {}
+
     public DbSet<Member> Members { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.HasDefaultSchema(_connectionStrings.SchemaPgSQLConnection ?? "CleanArchData");
+        modelBuilder.HasDefaultSchema(_connectionStrings?.SchemaPgSQLConnection ?? "CleanArchData");
         modelBuilder.ApplyConfigurationsFromAssembly(AssemblyReference.Assembly);
     }
 }

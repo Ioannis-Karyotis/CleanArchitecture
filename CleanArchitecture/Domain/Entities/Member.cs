@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public sealed class Member : Entity
+    public class Member : Entity
     {
 
         private Member(Guid id) : base(id){ } 
