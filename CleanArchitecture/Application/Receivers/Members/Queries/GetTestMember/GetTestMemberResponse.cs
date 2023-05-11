@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace Application.Members.Queries.GetTestMember
 {
-    public record GetTestMemberResponse(string Id, string Email);
+    public sealed record GetTestMemberResponse(string Id, string Email);
 }

@@ -3,11 +3,11 @@ using Application.Interfaces.Repositories;
 using Domain.Entities;
 using Domain.Errors;
 using Domain.Shared;
-using Domain.ValueObjects;
+using MediatR;
 
 namespace Application.Recievers.Members.Commands.AddTestMember
 {
-    public sealed class AddTestMemberCommandHandler : ICommandHandler<AddTestMemberCommand>
+    internal sealed class AddTestMemberCommandHandler : ICommandHandler<AddTestMemberCommand>
     {
         private readonly IMemberRepository _memberRepository;
         private readonly IUnitOfWork _unitOfWork;
@@ -50,6 +50,11 @@ namespace Application.Recievers.Members.Commands.AddTestMember
 
             return Result.Failure<GetTestMemberResponse>(DomainErrors.Member.NotFound);
 
+        }
+
+        Task<Result> IRequestHandler<AddTestMemberCommand, Result>.Handle(AddTestMemberCommand request, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
         }
     }
 }
