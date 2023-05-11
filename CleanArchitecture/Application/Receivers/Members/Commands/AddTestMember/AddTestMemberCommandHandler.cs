@@ -7,7 +7,7 @@ using Domain.ValueObjects;
 
 namespace Application.Recievers.Members.Commands.AddTestMember
 {
-    internal sealed class AddTestMemberCommandHandler : ICommandHandler<AddTestMemberCommand>
+    public sealed class AddTestMemberCommandHandler : ICommandHandler<AddTestMemberCommand>
     {
         private readonly IMemberRepository _memberRepository;
         private readonly IUnitOfWork _unitOfWork;
@@ -43,9 +43,13 @@ namespace Application.Recievers.Members.Commands.AddTestMember
 
             _memberRepository.Add(newMember.Value);
 
-            await _unitOfWork.SaveChangesAsync(cancellationToken);
+            if (await _unitOfWork.SaveChangesAsync(cancellationToken) > 0)
+            {
+                return Result.Success();
+            }
 
-            return Result.Success();
+            return Result.Failure<GetTestMemberResponse>(DomainErrors.Member.NotFound);
+
         }
     }
 }

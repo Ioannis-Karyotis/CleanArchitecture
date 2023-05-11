@@ -1,17 +1,11 @@
-﻿using Application.Abstractions.Messaging;
-using Application.Members.Queries.GetTestMember;
-using Azure;
+﻿using Application.Members.Queries.GetTestMember;
 using Domain.Shared;
 using FakeItEasy;
 using FluentAssertions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Controllers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Xunit;
 
 namespace Presentation.Tests.Controllers
 {

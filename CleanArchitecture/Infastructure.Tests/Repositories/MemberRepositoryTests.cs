@@ -1,20 +1,9 @@
-﻿using Application.Interfaces.Repositories;
-using Domain.Entities;
-using FakeItEasy;
+﻿using Domain.Entities;
 using FluentAssertions;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using Xunit;
-using Xunit.Sdk;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+
 
 
 namespace Infastructure.Tests.Repositories
@@ -22,20 +11,11 @@ namespace Infastructure.Tests.Repositories
     public class MemberRepositoryTests
     {
         private readonly ApplicationDbContext _context;
-        private readonly DbSet<Member> _dbSetMemberMock;
         private readonly MemberRepository _sut;
+
         public MemberRepositoryTests()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                //.UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-                .Options;
-
-            //var context = GetDatabaseContext().GetAwaiter().GetResult();
-            _context = A.Fake<ApplicationDbContext>(x => x.WithArgumentsForConstructor(() => 
-                new ApplicationDbContext(options))
-            );
-            _dbSetMemberMock = A.Fake<DbSet<Member>>();
-
+            _context = GetDatabaseContext().GetAwaiter().GetResult();
 
             //System Under Test
             _sut = new MemberRepository(_context);
@@ -70,52 +50,14 @@ namespace Infastructure.Tests.Repositories
             }
             return databaseContext;
         }
-        
+
 
         //InMemory Approach
-        //[Fact]
-        //public async void GetByIdAsync_ReturnsMember()
-        //{
-        //    //Arrange
-        //    var id = new Guid("4379e954-480d-48aa-a6a3-84c25181c6ac");
-
-        //    //Act
-        //    var result = await _sut.GetByIdAsync(id);
-
-        //    //Assert
-        //    result.Should().NotBeNull();
-        //    result.Should().BeOfType<Member>();
-        //}
-
-        //FakeItEasyApproach
         [Fact]
-        public async void GetByIdAsync_ReturnsMember2()
+        public async void GetByIdAsync_ShouldReturnMember()
         {
             //Arrange
-            var id = Guid.NewGuid();
-            CancellationToken cancelationToken = new CancellationToken();
-            var existingMember = Member.Create(
-                    id,
-                    "whatever@gmail.com",
-                    "What",
-                    "Ever"
-                );
-
-            if (existingMember.IsFailure)
-            {
-                throw new InvalidOperationException("Member Repository Tests Failed");
-            }
-
-            //A.CallTo(() => _context.Set<Member>())
-            //    .Returns(_dbSetMemberMock);
-
-            //A.CallTo(() => _dbSetMemberMock.FirstOrDefaultAsync(member => member.Id == id, cancelationToken))
-            //    .Returns(existingMember.Value);
-            A.CallTo(() => _dbSetMemberMock.FirstOrDefaultAsync(member => member.Id == id, cancelationToken))
-                .Returns(Task.FromResult(existingMember.Value));
-
-            A.CallTo(() => _context.Set<Member>())
-                .Returns(_dbSetMemberMock);
+            var id = new Guid("4379e954-480d-48aa-a6a3-84c25181c6ac");
 
             //Act
             var result = await _sut.GetByIdAsync(id);
@@ -124,5 +66,74 @@ namespace Infastructure.Tests.Repositories
             result.Should().NotBeNull();
             result.Should().BeOfType<Member>();
         }
+
+        //FakeItEasyApproach
+        //[Fact]
+        //public async void GetByIdAsync_ReturnsMember2()
+        //{
+        //Arrange
+        //            var id = Guid.NewGuid();
+        //            CancellationToken cancelationToken = new CancellationToken();
+        //            var existingMember = Member.Create(
+        //                    id,
+        //                    "whatever@gmail.com",
+        //                    "What",
+        //                    "Ever"
+        //                );
+
+        //            if (existingMember.IsFailure)
+        //            {
+        //                throw new InvalidOperationException("Member Repository Tests Failed");
+        //            }
+        //;
+
+
+        //A.CallTo(() => _dbSetMemberMock.FirstOrDefaultAsync(member => member.Id == id, cancelationToken))
+        //    .Returns(Task.FromResult(existingMember.Value));
+
+        //IQueryable<Member> fakeIQueryable = new List<Member>().AsQueryable();
+
+
+
+        //var fakeDbSet = A.Fake<DbSet<Member>>(d => d
+        //        .Implements(typeof(IDbAsyncEnumerable<Member>))
+        //        .Implements(typeof(IDbAsyncEnumerator<Member>))
+        //        .Implements(typeof(IDbAsyncQueryProvider))
+        //        .Implements(typeof(IQueryable<Member>)));
+
+        //A.CallTo(() => ((IQueryable<Member>)fakeDbSet).GetEnumerator())
+        //    .Returns(fakeIQueryable.GetEnumerator());
+        //A.CallTo(() => ((IQueryable<Member>)fakeDbSet).Provider)
+        //    .Returns(fakeIQueryable.Provider);
+        //A.CallTo(() => ((IQueryable<Member>)fakeDbSet).Expression)
+        //    .Returns(fakeIQueryable.Expression);
+        //A.CallTo(() => ((IQueryable<Member>)fakeDbSet).ElementType)
+        //  .Returns(fakeIQueryable.ElementType);
+
+        //    A.CallTo(() => ((IQueryable<Member>)fakeDbSet).Provider)
+        //     .Returns(new TestDbAsyncQueryProvider<Member>(fakeIQueryable.Provider));
+
+        //    //A.CallTo(() => ((IDbAsyncEnumerable<Member>)fakeDbSet).GetAsyncEnumerator())
+        //    //    .Returns(new TestDbAsyncEnumerator<Member>(fakeIQueryable.GetEnumerator()));
+
+        //    var fakeContext = A.Fake<ApplicationDbContext>(x =>
+        //        x.WithArgumentsForConstructor(() =>
+        //            new ApplicationDbContext(new DbContextOptionsBuilder<ApplicationDbContext>().Options)
+        //            )
+        //    );
+
+        //    A.CallTo(() => fakeContext.Set<Member>())
+        //        .Returns(fakeDbSet);
+
+        //    var repo = new MemberRepository(fakeContext);
+
+
+        //    //Act
+        //    var result = await repo.GetByIdAsync(id);
+
+        //    //Assert
+        //    result.Should().NotBeNull();
+        //    result.Should().BeOfType<Member>();
+        //}
     }
 }

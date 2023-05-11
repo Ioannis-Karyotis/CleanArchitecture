@@ -19,7 +19,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B1C96A8F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Presentation.Tests", "Presentation.Tests\Presentation.Tests.csproj", "{2B6D7726-D750-4D06-BABB-E0AEC5D27168}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infastructure.Tests", "Infastructure.Tests\Infastructure.Tests.csproj", "{E2636B7E-500F-4C34-8685-D1A2B538A7E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infastructure.Tests", "Infastructure.Tests\Infastructure.Tests.csproj", "{E2636B7E-500F-4C34-8685-D1A2B538A7E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Tests", "Application.Tests\Application.Tests.csproj", "{5119228D-095C-447F-BC36-08A47358537F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,10 @@ Global
 		{E2636B7E-500F-4C34-8685-D1A2B538A7E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2636B7E-500F-4C34-8685-D1A2B538A7E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E2636B7E-500F-4C34-8685-D1A2B538A7E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5119228D-095C-447F-BC36-08A47358537F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5119228D-095C-447F-BC36-08A47358537F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5119228D-095C-447F-BC36-08A47358537F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5119228D-095C-447F-BC36-08A47358537F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +73,7 @@ Global
 		{9BCCCB15-3FAF-4AB6-A166-B22EF4A18314} = {3F57F973-E1C0-4400-8047-F4E75ECFD0E5}
 		{2B6D7726-D750-4D06-BABB-E0AEC5D27168} = {B1C96A8F-F9D6-40D8-BFBE-0D533E1274DC}
 		{E2636B7E-500F-4C34-8685-D1A2B538A7E5} = {B1C96A8F-F9D6-40D8-BFBE-0D533E1274DC}
+		{5119228D-095C-447F-BC36-08A47358537F} = {B1C96A8F-F9D6-40D8-BFBE-0D533E1274DC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FD1B9DCC-C7BC-47B5-B484-FF630AD024BD}
