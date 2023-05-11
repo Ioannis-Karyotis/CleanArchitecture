@@ -29,19 +29,19 @@ namespace Application.Recievers.Members.Commands.AddTestMember
                 return Result.Failure<GetTestMemberResponse>(DomainErrors.Member.AlreadyExists);
             }
 
-            var newMember = Member.Create(
+            var newMemberResult = Member.Create(
                 Guid.NewGuid(),
                 request.Email,
                 request.FirstName,
                 request.LastName
                 );
 
-            if (newMember.IsFailure)
+            if (newMemberResult.IsFailure)
             {
-                return newMember;
+                return newMemberResult;
             }
 
-            _memberRepository.Add(newMember.Value);
+            _memberRepository.Add(newMemberResult.Value);
 
             if (await _unitOfWork.SaveChangesAsync(cancellationToken) > 0)
             {
