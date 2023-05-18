@@ -9,7 +9,7 @@ namespace Presentation.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    internal sealed class HomeController : ApiController
+    public sealed class HomeController : ApiController
     {
 
         public HomeController(ISender sender)

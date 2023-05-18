@@ -45,7 +45,7 @@ namespace WebApi.Utils.Extensions.Startup
                     var logger = services.GetRequiredService<ILogger<Program>>();
                     logger.LogError(ex, "An error occurred seeding the DB.");
                 }
-            }
+        }
             return webApplication;
         }
 
@@ -88,7 +88,7 @@ namespace WebApi.Utils.Extensions.Startup
 
                 if (newSeedMember.IsFailure)
                 {
-                    throw new Exception("There was an error feeding the initial Member");
+                    return;
                 }
 
                 context.Members.Add(newSeedMember.Value);

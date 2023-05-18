@@ -1,0 +1,28 @@
+version: "3.9"
+services:
+  proxy:
+    build: 
+      context: ./Proxy
+      dockerfile: Dockerfile
+    ports: 
+      - "80:80"
+    restart: always
+  db:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    volumes: 
+      - db:/var/lib/postgresql/data
+  api:
+    build: 
+        context: ./CleanArchitecture
+        dockerfile: Dockerfile
+    ports:
+      - "8000:80"
+volumes:
+  db:
+    driver: local
