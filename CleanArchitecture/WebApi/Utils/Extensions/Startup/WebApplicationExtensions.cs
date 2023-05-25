@@ -14,6 +14,8 @@ namespace WebApi.Utils.Extensions.Startup
 
             app.UseSerilogRequestLogging();
 
+            app.UseStaticFiles();
+
             app.UseHttpsRedirection();
 
             app.UseRouting();

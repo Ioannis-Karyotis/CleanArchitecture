@@ -1,28 +1,49 @@
 version: "3.9"
+
+networks:
+  dev:
+    driver: bridge
+
 services:
-  proxy:
-    build: 
-      context: ./Proxy
-      dockerfile: Dockerfile
-    ports: 
-      - "80:80"
-    restart: always
-  db:
-    image: postgres:14.1-alpine
-    restart: always
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    ports:
-      - '5432:5432'
-    volumes: 
-      - db:/var/lib/postgresql/data
   api:
+    container_name: CleanArchApi
     build: 
         context: ./CleanArchitecture
         dockerfile: Dockerfile
+    depends_on: 
+      - "db"
+      #- "reverse_proxy"
     ports:
       - "8000:80"
-volumes:
+    networks:
+      - dev
+  #reverse_proxy:
+  #  image: nginx:alpine
+  #  container_name: CleanArchReverseProxy
+  #  volumes:
+  #    - ./nginx.conf:/etc/nginx/nginx.conf:ro
+  #  ports:
+  #    - "4000:4000"
+  #  networks:
+  #    - dev
   db:
-    driver: local
+    image: postgres:14.1-alpine
+    container_name: CleanArchDb
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=Margoleta16!
+      - POSTGRES_DB=CleanArch
+    ports:
+      - '5432:5432'
+    volumes: 
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - dev
+  redis:
+    image: "redis:alpine"
+    container_name: CleanArchRedis
+    ports:
+      - "6379:6379"
+volumes:
+  pgdata:

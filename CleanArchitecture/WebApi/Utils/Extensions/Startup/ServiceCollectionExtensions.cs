@@ -24,6 +24,7 @@ namespace WebApi.Utils.Extensions.Startup
             //            configurationManager.GetActiveDBSchema())
             //    )
             //);
+            Console.WriteLine(configurationManager.GetAppActiveConnectionString());
 
             services.AddDbContext<ApplicationDbContext>(
                 options => options.UseNpgsql(configurationManager.GetAppActiveConnectionString(),

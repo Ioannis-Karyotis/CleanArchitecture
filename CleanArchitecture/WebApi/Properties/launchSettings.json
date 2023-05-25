@@ -32,11 +32,14 @@
         "ACTIVE_SCHEMA_VARIABLE": "PgSQLConnection"
       }
     },
-    "WebApi": {
-      "commandName": "Project",
+    "Docker": {
+      "commandName": "Docker",
       "launchBrowser": true,
       "launchUrl": "swagger",
+      "useSSL": false,
+      "DockerfileRunArguments": "-l mylabel=value",
       "environmentVariables": {
+        "ASPNETCORE_URLS": "https://+:443;http://+:80",
         "ASPNETCORE_ENVIRONMENT": "Development",
         "APP_CONTENT_ROOT": "",
         "APP_WEB_ROOT": "",

@@ -6,7 +6,8 @@ namespace WebApi.Utils.Extensions.Startup
     {
         public static string GetAppActiveConnectionString(this IConfiguration config)
         {
-           var connectionString = config.GetConnectionString(EnvVariablesRetriever.GetAppActiveConnectionVariable())
+            Console.WriteLine($"/////  {EnvVariablesRetriever.GetAppActiveConnectionVariable()} /////");
+            var connectionString = config.GetConnectionString(EnvVariablesRetriever.GetAppActiveConnectionVariable())
                 ?? "Host=localhost;Database=CleanArch;Username=postgres;Password=Margoleta16!";
 
             return connectionString;
